@@ -1,0 +1,63 @@
+*{
+    box-sizing: border-box;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+}
+body,html{
+    width: 100%;
+    height: 100%;
+}
+header{
+    background-color: purple;
+    text-align: center;
+}
+.container{
+    display: flex;
+}
+.section-title{
+    text-align: center;
+    padding: 1rem;
+    font-size: 2rem;
+}
+.project-container{
+    border-right: solid 2px black;
+    width: 25%;
+    height: 100Vh;
+}
+.todo-container{
+    width: 75%;
+    height: 100vh;
+  
+}
+.append-todo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.todo{
+    display: flex;
+    background-color: whitesmoke;
+    justify-content: space-between;
+    align-items: center;
+    width: 75%;
+    border: solid 2px blue;
+    border-radius: 5px;
+}
+.left-todo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right-todo{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.interface{
+ margin: 0 .5rem 0 .5rem;
+}
+.toggle-todo{
+    margin: .5rem;
+}
