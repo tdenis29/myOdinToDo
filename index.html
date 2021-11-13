@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="root">
+        <header>
+            <h1 style="font-size: 2rem;">myOdinTodo</h1>
+        </header>
+         
+     <div class="container">
+        <div class="project-container">
+            <h2 class="section-title">Projects</h2>
+            <div class="append-projects">
+                <button class="project-nav-button">Today</button>
+                <button class="project-nav-button">Default</button>
+            </div>
+
+            <div class="addNewProjectButton">
+                <button>Add New Project</button>
+            </div>
+        </div>
+        
+        <div class="todo-container">
+            <h2 class="section-title">Your Todo List</h2>
+            <ul class="append-todo">
+                <li class="todo">
+                   <div class="left-todo">
+                    <button class="toggle-todo">O</button>
+                    <p class="todo-title">French Lesson</p>
+                   </div> 
+
+                   <div class="right-todo">
+                    <p class="dueDate interface"> 2021/11/15</p>
+                    <button class="edit-todo interface">Edit</button>
+                    <button class="priority-todo interface">Change Priority</button>
+                    <button class="delete-todo interface">Delete</button>
+                   </div>
+                </li>
+            </ul>
+            <div class="addNewTodoButton">
+                <button>Add New Todo</button>
+            </div>
+        </div>
+     </div>
+    </div>
+
+    <script src="./main.js"></script>    
+</body>
+</html>
