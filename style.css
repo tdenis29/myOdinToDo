@@ -21,10 +21,27 @@ header{
     padding: 1rem;
     font-size: 2rem;
 }
+.current{
+    text-align: center;
+    margin-bottom: .5rem;
+}
 .project-container{
     border-right: solid 2px black;
     width: 25%;
     height: 100Vh;
+}
+.append-projects{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.project-nav-button{
+    width: 75%;
+    background-color: whitesmoke;
+    border: none;
+    margin: .5rem;
+    cursor: pointer;
 }
 .todo-container{
     width: 75%;
