@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,7 +13,66 @@
         <header>
             <h1 style="font-size: 2rem;">myOdinTodo</h1>
         </header>
-         
+    <!-- Modals -->
+    <div class="projectOverlay hidden" id="projectOverlay">
+        <div class="modal">
+            <h4>Add New Project</h4>
+
+          <form id="form" novalidate>
+            <div class="textinput">
+                <label for="project-title">Project Title</label>
+                <input type="text" id="projectTitle" name="project-title" required aria-required="true" placeholder="Project Title">
+            </div>
+
+            <div class="button-con">
+                <button type="submit" class="addBook" id="addProject">Add Project</button>
+              
+            </div>
+                <button class="modal-close" id="projectmodalClose">X</button>
+          </form>
+        </div>
+    </div>
+
+
+    <div class="todoOverlay" id="todoOverlay">
+        <div class="modal">
+            <h4>Add New Todo</h4>
+          <form id="form" novalidate>
+            <div class="textinput">
+                <label for="todo-title">Todo Title</label>
+                <input type="text" id="todoTitle" name="todo-title" required aria-required="true" placeholder="ToDo Title">
+            </div>
+
+            <div class="textinput">
+                <label for="description">Description</label>
+                <textarea rows="3" id="todoDesc" name="description" required aria-required="true" placeholder="Todo"></textarea>
+            </div>
+
+            <div class="textinput half">
+                <div class="otherinput">
+                    <label for="priority">ToDo Priority</label>
+                    <select name="priority" class="textinput">
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                </div>
+
+                <div class="otherinput">
+                    <label for="duedate">Due Date:</label>
+                    <input type="date" name="duedate"> 
+                </div>
+            </div>
+
+                <div class="button-con">
+                    <button type="submit" class="addBook" id="send">Add ToDo</button>
+                 </div>
+                <button class="modal-close" id="todomodalClose">X</button>
+          </form>
+        </div>
+    </div>
+
+    <!-- End Modals -->
      <div class="container">
         <div class="project-container">
             <h2 class="section-title">Projects</h2>
@@ -22,7 +82,7 @@
             </div>
 
             <div class="addNewProjectButton">
-                <button>Add New Project</button>
+                <button id="addNewProjectForm">Add New Project</button>
             </div>
         </div>
         
@@ -33,25 +93,25 @@
            
                 <li class="todo">
                    <div class="left-todo">
-                    <button class="toggle-todo">O</button>
+                    <button class="toggle-todo"><i class="far fa-circle"></i></button>
                     <p class="todo-title">French Lesson</p>
                    </div> 
 
                    <div class="right-todo">
-                    <p class="dueDate interface"> 2021/11/15</p>
-                    <button class="edit-todo interface">Edit</button>
-                    <button class="priority-todo interface">Change Priority</button>
-                    <button class="delete-todo interface">Delete</button>
+                        <p class="dueDate interface"> 2021/11/15</p>
+                        <button class="edit-todo interface"><i class="fas fa-edit"></i>Edit</button>
+                        <button class="priority-todo interface"><i class="fas fa-hourglass-half"></i>Change Priority</button>
+                        <button class="delete-todo interface"><i class="fas fa-trash-alt"></i>Delete</button>
                    </div>
                 </li>
             </ul>
-            <div class="addNewTodoButton">
+            <div class="addNewTodoForm" id="addNewTodoForm">
                 <button>Add New Todo</button>
             </div>
         </div>
      </div>
     </div>
 
-    <script src="./main.js"></script>    
+    <script src="../src/app/basicOp.js"></script>    
 </body>
 </html>
