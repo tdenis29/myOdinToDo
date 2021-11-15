@@ -18,14 +18,14 @@
         <div class="modal">
             <h4>Add New Project</h4>
 
-          <form id="form" novalidate>
+          <form id="addProject" novalidate>
             <div class="textinput">
                 <label for="project-title">Project Title</label>
                 <input type="text" id="projectTitle" name="project-title" required aria-required="true" placeholder="Project Title">
             </div>
 
             <div class="button-con">
-                <button type="submit" class="addBook" id="addProject">Add Project</button>
+                <button type="submit" class="addBook">Add Project</button>
               
             </div>
                 <button class="modal-close" id="projectmodalClose">X</button>
@@ -76,10 +76,16 @@
      <div class="container">
         <div class="project-container">
             <h2 class="section-title">Projects</h2>
-            <div class="append-projects">
-                <button class="project-nav-button">Today</button>
-                <button class="project-nav-button">Default</button>
-            </div>
+            <ul class="append-projects">
+                <li class="project-button">
+                    <p class="projectTitle">Today</p>
+                    <button class="deleteProject"><i class="fas fa-trash-alt"></i></button>
+                </li>
+                <li class="project-button">
+                    <p class="projectTitle">Default</p>
+                    <button class="deleteProject"><i class="fas fa-trash-alt"></i></button>
+                </li>
+            </ul>
 
             <div class="addNewProjectButton">
                 <button id="addNewProjectForm">Add New Project</button>
@@ -93,7 +99,7 @@
            
                 <li class="todo">
                    <div class="left-todo">
-                    <button class="toggle-todo"><i class="far fa-circle"></i></button>
+                    <button class="toggle-todo interface"><i class="far fa-circle"></i></button>
                     <p class="todo-title">French Lesson</p>
                    </div> 
 
@@ -112,6 +118,6 @@
      </div>
     </div>
 
-    <script src="../src/app/basicOp.js"></script>    
+    <script src="./main.js"></script>    
 </body>
 </html>
