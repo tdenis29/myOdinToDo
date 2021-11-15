@@ -36,7 +36,7 @@ header{
     align-items: center;
     justify-content: center;
 }
-.project-nav-button{
+.project-button{
     width: 75%;
     background-color: whitesmoke;
     border: none;
@@ -44,6 +44,12 @@ header{
     padding: .5rem;
     cursor: pointer;
     border-radius: 5px;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.project-button:active{
+    border: solid 2px violet;
 }
 .todo-container{
     width: 75%;
