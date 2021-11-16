@@ -1,12 +1,35 @@
 import { Controller } from "./Controller"
+import * as PubSub from "pubsub-js"
+
 export class View {
     constructor(){
         this.projectForm = document.getElementById('addProject')
         this.projectButtons = Array.from(document.getElementsByClassName("project-button")) 
+        this.appendProjects = document.getElementById('appendProjects')
+        this.projectOverlay = document.getElementById("projectOverlay")
+
+        //
+        
+        PubSub.subscribe("Changed Projects", (tag, projects) => {
+            this.updateProjectsList(projects.projects)
+        })
     }
-    displayProject(arr){
-    console.log(arr)
-    }
+    updateProjectsList(arr){
+        console.log(arr)
+        let projectArr = Array.from(arr)
+        let projectHTML = "";
+        projectArr.forEach((project, index) => {
+            let title = project.title;
+            projectHTML += `
+            <li id="${index}" class="project-button">
+                <p class="projectTitle">${title}</p>
+                <button class="deleteProject"><i id="${index}" class="fas fa-trash-alt"></i></button>
+            </li>
+            
+        `
+        });
+        this.appendProjects.innerHTML = projectHTML;
+    };
   
     projectSubmitData(){
         let projecttitle = document.getElementById('projectTitle').value
@@ -17,12 +40,17 @@ export class View {
             e.preventDefault()
             if(this.projectSubmitData()){
                 handler(this.projectSubmitData())
+                this.projectOverlay.style.display = "none";
             } else {
                 console.log('No submit data')
             }
         } )
     }
-  
-    
-    
+    bindDeleteProject(handler){
+     this.appendProjects.addEventListener('click', e => {
+         if(e.target.nodeName == "I"){
+             handler(e.target.id)
+         }
+     })
+    }
 }

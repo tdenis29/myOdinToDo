@@ -7,13 +7,19 @@ export class Controller {
         this.model = new Model()
         this.view = new View()
         //thisbindings
+        //display intital project
+        this.view.updateProjectsList(this.model.projects)
+        //add projects linkup
         this.view.bindAddProject(this.handleAddProject)
+        //delete projects linkup
+        this.view.bindDeleteProject(this.handleDeleteProject)
+
     }
     handleAddProject = data => {
         this.model.addProject(data)
       }
-    watchChangesOnProjects(){
-        
+    handleDeleteProject = data => {
+        this.model.deleteProject(data)
     }
 
 

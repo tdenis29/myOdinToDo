@@ -1,0 +1,10 @@
+/*!
+ * PubSub
+ * Javascript implementation of the Publish/Subscribe pattern.
+ *
+ * @version v4.0.0
+ * @author George Raptis <georapbox@gmail.com>
+ * @homepage https://github.com/georapbox/PubSub#readme
+ * @repository https://github.com/georapbox/PubSub.git
+ * @license MIT
+ */
