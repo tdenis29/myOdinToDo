@@ -8,11 +8,12 @@ export class View {
         this.appendProjects = document.getElementById('appendProjects')
         this.projectOverlay = document.getElementById("projectOverlay")
 
-        //
-        
+        //Update Projects List on change Add or Delete
         PubSub.subscribe("Changed Projects", (tag, projects) => {
             this.updateProjectsList(projects.projects)
         })
+        //TODOS
+        this.todoForm = document.getElementById('todoForm')
     }
     updateProjectsList(arr){
         console.log(arr)
@@ -21,16 +22,14 @@ export class View {
         projectArr.forEach((project, index) => {
             let title = project.title;
             projectHTML += `
-            <li id="${index}" class="project-button">
-                <p class="projectTitle">${title}</p>
+            <li id="${index}" class="project-button" >
+                ${title}
                 <button class="deleteProject"><i id="${index}" class="fas fa-trash-alt"></i></button>
             </li>
-            
         `
         });
         this.appendProjects.innerHTML = projectHTML;
     };
-  
     projectSubmitData(){
         let projecttitle = document.getElementById('projectTitle').value
         return projecttitle;
@@ -50,7 +49,20 @@ export class View {
      this.appendProjects.addEventListener('click', e => {
          if(e.target.nodeName == "I"){
              handler(e.target.id)
+         } else {
+             return 
          }
      })
     }
+    bindActiveProject(handler){
+        this.appendProjects.addEventListener('click', e => {
+            if(e.target.nodeName === "LI"){
+               e.target.classList.toggle("active")
+               handler(e.target.id)
+            } else {
+                return 
+            }
+        })
+    }
+
 }

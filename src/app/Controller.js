@@ -13,6 +13,7 @@ export class Controller {
         this.view.bindAddProject(this.handleAddProject)
         //delete projects linkup
         this.view.bindDeleteProject(this.handleDeleteProject)
+        this.view.bindActiveProject(this.handleActiveProject)
 
     }
     handleAddProject = data => {
@@ -20,6 +21,9 @@ export class Controller {
       }
     handleDeleteProject = data => {
         this.model.deleteProject(data)
+    }
+    handleActiveProject = data => {
+        this.model.toggleActivePropertyonProject(data)
     }
 
 

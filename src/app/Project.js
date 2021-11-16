@@ -3,5 +3,6 @@ export class Project {
         this.id = id
         this.title = title;
         this.todos = [];
+        this.active = false;
     }
 }

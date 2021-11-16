@@ -7,10 +7,10 @@ export class Model {
         {
          id: 0,
          title: "Default",
-         todos: []
+         todos: [],
+         active: false
         }
-       ];
-          
+       ]; 
     }
     addProject(data){
         let project = new Project(data, (this.projects.length));
@@ -18,22 +18,33 @@ export class Model {
         console.log(project)
         PubSub.publish("Changed Projects", {
             projects: this.projects,
-
         })
     }
     deleteProject(id){
       parseInt(id)
-      console.log(id + "it made it to Model!")
       let removed = this.projects.splice(id, 1);
       PubSub.publish("Changed Projects", {
           projects: this.projects
       })
     }
-    editProjectTitle(){
-
-    }
     addTodo(targetProject, data){
         console.log(targetProject, data)
+    }
+ 
+    toggleActivePropertyonProject(id){
+        parseInt(id)
+        for(let i = 0; i < this.projects.length; i++){
+            if(this.projects[i].id == id && this.projects[i].active == false){
+                this.projects[i].active = true  
+            } else if(this.projects[i].id == id && this.projects[i].active === true){
+                this.projects[i].active = false;
+            }
+            
+        }
+        console.log(this.projects)
+    }
+    findActiveProject(){
+
     }
 
 
