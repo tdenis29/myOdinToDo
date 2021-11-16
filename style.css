@@ -48,7 +48,7 @@ header{
     align-items: center;
     justify-content: space-evenly;
 }
-.project-button:active{
+.project-button.active{
     border: solid 2px violet;
 }
 .todo-container{
