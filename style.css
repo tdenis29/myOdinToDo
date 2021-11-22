@@ -71,7 +71,13 @@ header{
     border-radius: 5px;
 }
 .todo.high{
-    border
+    border: solid 2px red;
+}
+.todo.medium{
+    border: solid 2px yellow;
+}
+.todo.low{
+    border: solid 2px green;
 }
 .left-todo{
     display: flex;
