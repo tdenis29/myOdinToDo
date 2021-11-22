@@ -70,6 +70,9 @@ header{
     border: solid 2px blue;
     border-radius: 5px;
 }
+.todo.high{
+    border
+}
 .left-todo{
     display: flex;
     justify-content: center;
@@ -207,4 +210,5 @@ header{
                 background-color: #F3F4F2;
                 color:#2A75C7;
             }
+
         

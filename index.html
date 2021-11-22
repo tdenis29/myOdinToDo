@@ -88,7 +88,7 @@
         <div class="todo-container">
             <h2 class="section-title">Your Todo List</h2>
             <h3 id="selectedProject" class="current">Current Project</h3>
-            <ul class="append-todo">
+            <ul id="appendTodos" class="append-todo">
            
                 <li class="todo">
                    <div class="left-todo">
@@ -97,7 +97,9 @@
                    </div> 
 
                    <div class="right-todo">
-                        <p class="dueDate interface"> 2021/11/15</p>
+                    <div class="input">
+                        <input type="date" name="duedate" value=""> 
+                    </div>
                         <button class="edit-todo interface"><i class="fas fa-edit"></i>Edit</button>
                         <button class="priority-todo interface"><i class="fas fa-hourglass-half"></i>Change Priority</button>
                         <button class="delete-todo interface"><i class="fas fa-trash-alt"></i>Delete</button>
