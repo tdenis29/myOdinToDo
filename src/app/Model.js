@@ -1,5 +1,6 @@
 import {Project} from "./Project";
 import * as PubSub from "pubsub-js"
+import { Todo } from "./Todo";
 
 export class Model {
     constructor(){
@@ -27,8 +28,9 @@ export class Model {
           projects: this.projects
       })
     }
-    addTodo(targetProject, data){
-        console.log(targetProject, data)
+    addTodo(data){
+        let todo = new Todo(this.findActiveProject().todos.length, data.todoTitle, data.todoDesc, data.todoPri, data.tododd) 
+        this.findActiveProject().todos.push(todo)
     }
  
     toggleActivePropertyonProject(id){

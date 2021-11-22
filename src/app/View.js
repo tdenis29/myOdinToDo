@@ -14,6 +14,7 @@ export class View {
         })
         //TODOS
         this.todoForm = document.getElementById('todoForm')
+        this.todoOverlay = document.getElementById('todoOverlay')
         this.selectedProject = document.getElementById('selectedProject')
     }
     updateProjectsList(arr){
@@ -45,6 +46,13 @@ export class View {
     projectSubmitData(){
         let projecttitle = document.getElementById('projectTitle').value
         return projecttitle;
+    }
+    todoSubmitData(){
+        let todoTitle = document.getElementById("todoTitle").value
+        let todoDesc = document.getElementById("todoDesc").value
+        let todoPri = document.getElementById('todoPri').value
+        let tododd = document.getElementById('tododd').value
+        return {todoTitle, todoDesc, todoPri, tododd}
     }
     /**
      * @param {Function} param - Connects this function (to add Projects to the Model Projects Arry) with Model via controller
@@ -81,7 +89,7 @@ export class View {
                handler(e.target.id)
                this.styleActiveProject(e.target.id)
                PubSub.subscribe("Changed Active", (tag, active) => {
-                  console.log(active)
+                  this.displayActiveProjectsTodos(active.active)
                })
                 // this.styleActiveProject(e.target.id);
             } else {
@@ -89,7 +97,15 @@ export class View {
             }
         })
     }
-
+    bindAddToDo(handler){
+        this.todoForm.addEventListener('submit', e => {
+            e.preventDefault()
+            if(this.todoSubmitData()){
+                handler(this.todoSubmitData())
+                this.todoOverlay.style.display = "none";
+            }
+        })
+    }
     /**
      * @param {INT}} param - Takes the id of the Active project and styles it
     */
@@ -106,16 +122,25 @@ export class View {
 
     }
     displayActiveProjectsTodos(project){
-        todoArr = project.title
+        console.log(project)
+        let title = project.title
+        let todoArr = project.todos
+        let todoHTML = ''
         if(project.todos.length == 0){
-
+            alert("Say Something")
         } else {
+        this.selectedProject.textContent = `${title}`
         todoArr.forEach((todo, index) => { 
-            this.selectedProject.textContent = `${project.title}`
             const {id, title , dd, desc, pri} = todo
-            let todoHTML = ''
             todoHTML += `
-            <li id="${index}" class="todo">
+            `;if(pri === "High"){
+              todoHTML += `<li id="${index}" class="todo high">`
+            } else if (pri === "Medium"){
+                todoHTML += `<li id="${index}" class="todo medium">`
+            } else {
+                todoHTML += `<li id="${index}" class="todo low">`
+            }
+            todoHTML += `
                 <div class="left-todo">
                     <button class="toggle-todo interface"><i class="far fa-circle"></i></button>
                      <p class="todo-title">${title}</p>
@@ -134,6 +159,7 @@ export class View {
              </li>
              `
         })
+        this.appendTodos.innerHTML = todoHTML;
     }
 }
 }

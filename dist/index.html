@@ -51,7 +51,7 @@
             <div class="textinput half">
                 <div class="otherinput">
                     <label for="priority">ToDo Priority</label>
-                    <select name="priority" class="textinput">
+                    <select id="todoPri" name="priority" class="textinput">
                         <option>Low</option>
                         <option>Medium</option>
                         <option>High</option>
@@ -60,7 +60,7 @@
 
                 <div class="otherinput">
                     <label for="duedate">Due Date:</label>
-                    <input type="date" name="duedate"> 
+                    <input id="tododd" type="date" name="duedate"> 
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
             <h3 id="selectedProject" class="current">Current Project</h3>
             <ul id="appendTodos" class="append-todo">
            
-                <li class="todo">
+                <!-- <li class="todo">
                    <div class="left-todo">
                     <button class="toggle-todo interface"><i class="far fa-circle"></i></button>
                     <p class="todo-title">French Lesson</p>
@@ -101,10 +101,10 @@
                         <input type="date" name="duedate" value=""> 
                     </div>
                         <button class="edit-todo interface"><i class="fas fa-edit"></i>Edit</button>
-                        <button class="priority-todo interface"><i class="fas fa-hourglass-half"></i>Change Priority</button>
+                        <button class="priority-todo interface"><i class="fas fa-hourglass-half"></i>Expand</button>
                         <button class="delete-todo interface"><i class="fas fa-trash-alt"></i>Delete</button>
                    </div>
-                </li>
+                </li> -->
             </ul>
             <div class="addNewTodoForm" id="addNewTodoForm">
                 <button>Add New Todo</button>

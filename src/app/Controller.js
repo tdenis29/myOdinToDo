@@ -15,6 +15,8 @@ export class Controller {
         //delete projects linkup
         this.view.bindDeleteProject(this.handleDeleteProject)
         this.view.bindActiveProject(this.handleActiveProject)
+        //add todo
+        this.view.bindAddToDo(this.handleAddTodo)
     }
     handleAddProject = data => {
         this.model.addProject(data)
@@ -25,6 +27,9 @@ export class Controller {
     handleActiveProject = data => {
         this.model.toggleActivePropertyonProject(data)
         
+    }
+    handleAddTodo = data => {
+        this.model.addTodo(data)
     }
 
 
