@@ -9,12 +9,12 @@ export class Controller {
         //thisbindings
         //display intital project
         this.view.updateProjectsList(this.model.projects)
+        
         //add projects linkup
         this.view.bindAddProject(this.handleAddProject)
         //delete projects linkup
         this.view.bindDeleteProject(this.handleDeleteProject)
         this.view.bindActiveProject(this.handleActiveProject)
-
     }
     handleAddProject = data => {
         this.model.addProject(data)
@@ -24,6 +24,7 @@ export class Controller {
     }
     handleActiveProject = data => {
         this.model.toggleActivePropertyonProject(data)
+        
     }
 
 
