@@ -16,7 +16,6 @@ export class Model {
     addProject(data){
         let project = new Project(data, (this.projects.length));
         this.projects.push(project)
-      
         PubSub.publish("Changed Projects", {
             projects: this.projects,
         })
@@ -31,6 +30,9 @@ export class Model {
     addTodo(data){
         let todo = new Todo(this.findActiveProject().todos.length, data.todoTitle, data.todoDesc, data.todoPri, data.tododd) 
         this.findActiveProject().todos.push(todo)
+        PubSub.publish('Changed Todos', {
+            project: this.findActiveProject(),
+        })
     }
  
     toggleActivePropertyonProject(id){

@@ -16,6 +16,10 @@ export class View {
         this.todoForm = document.getElementById('todoForm')
         this.todoOverlay = document.getElementById('todoOverlay')
         this.selectedProject = document.getElementById('selectedProject')
+        //Update Todos list on add
+        PubSub.subscribe("Changed Todos", (tag, project)=> {
+            this.displayActiveProjectsTodos(project)
+        })
     }
     updateProjectsList(arr){
         let projectArr = Array.from(arr)
@@ -124,10 +128,17 @@ export class View {
     displayActiveProjectsTodos(project){
         console.log(project)
         let title = project.title
+        if(title === undefined || title === null){
+            title = project.project.title
+        }
         let todoArr = project.todos
+        if(todoArr === undefined || todoArr === null){
+            todoArr = project.project.todos
+        }
         let todoHTML = ''
-        if(project.todos.length == 0){
-            alert("Say Something")
+        if(todoArr.length == 0){
+            let emptyTodoMessage = `<p>No Todos in this Project, Create One.</p>`
+            this.appendTodos.innerHTML = emptyTodoMessage
         } else {
         this.selectedProject.textContent = `${title}`
         todoArr.forEach((todo, index) => { 
