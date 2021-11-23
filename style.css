@@ -62,9 +62,10 @@ header{
     justify-content: center;
 }
 .todo{
-    display: flex;
+    display: grid;
+    grid-template-areas: "left right"
+                         "bottom bottom";
     background-color: whitesmoke;
-    justify-content: space-between;
     align-items: center;
     width: 75%;
     border: solid 2px blue;
@@ -83,17 +84,28 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
+    grid-area: left;
+}
+.todo-title{
+    margin: 0.5rem;
 }
 .right-todo{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    grid-area: right;
 }
 .interface{
  margin: 0 .5rem 0 .5rem;
 }
+
 .toggle-todo{
     margin: .5rem;
+}
+.bottom{
+    grid-area: bottom;
+    margin: 0.5rem;
+    align-self: center;
 }
 
 /* Modal */
