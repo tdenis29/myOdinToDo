@@ -89,22 +89,23 @@
             <h2 class="section-title">Your Todo List</h2>
             <h3 id="selectedProject" class="current">Current Project</h3>
             <ul id="appendTodos" class="append-todo">
-           
-                <!-- <li class="todo">
-                   <div class="left-todo">
-                    <button class="toggle-todo interface"><i class="far fa-circle"></i></button>
-                    <p class="todo-title">French Lesson</p>
-                   </div> 
-
-                   <div class="right-todo">
-                    <div class="input">
-                        <input type="date" name="duedate" value=""> 
-                    </div>
+                <li id="${index}" class="todo low">
+                    <div class="left-todo">
+                        <p class="todo-title">French Lesson</p>
+                    </div> 
+                    <div class="right-todo">
+                        <div class="input">
+                            <input type="date" name="duedate" value="${dd}"> 
+                        </div>
+                        <button class="toggle-todo interface"><i class="far fa-circle"></i>Complete</button>
                         <button class="edit-todo interface"><i class="fas fa-edit"></i>Edit</button>
-                        <button class="priority-todo interface"><i class="fas fa-hourglass-half"></i>Expand</button>
                         <button class="delete-todo interface"><i class="fas fa-trash-alt"></i>Delete</button>
-                   </div>
-                </li> -->
+                    </div>
+                    <details class="bottom">
+                    <summary><i class="fas fa-expand-arrows-alt"></i></summary>
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat, commodi? Qui at atque soluta illo repudiandae laudantium non ad corporis! Saepe qui aspernatur exercitationem sapiente suscipit, laudantium quis ad ipsa!</p>
+                </details>
+             </li>
             </ul>
             <div class="addNewTodoForm" id="addNewTodoForm">
                 <button>Add New Todo</button>

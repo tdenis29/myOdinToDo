@@ -161,13 +161,14 @@ export class View {
                         <input type="date" name="duedate" value="${dd}"> 
                     </div>
                     <button class="edit-todo interface"><i class="fas fa-edit"></i>Edit</button>
-                    <button class="priority-todo interface"><i class="fas fa-hourglass-half"></i>Expand</button>
+                    <button class="priority-todo interface"><i class="fas fa-expand-arrows-alt"></i>Expand</button>
                     <button class="delete-todo interface"><i class="fas fa-trash-alt"></i>Delete</button>
                 </div>
                 <div id="${index}Collapsible" class="collapsible-content">
                     <p>${desc}</p>
                 </div>
              </li>
+             
              `
         })
         this.appendTodos.innerHTML = todoHTML;
