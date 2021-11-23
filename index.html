@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="body">
     <div class="root">
         <header>
             <h1 style="font-size: 2rem;">myOdinTodo</h1>
@@ -37,15 +37,15 @@
     <div class="todoOverlay" id="todoOverlay">
         <div class="modal">
             <h4>Add New Todo</h4>
-          <form id="todoForm" novalidate>
+          <form id="todoForm">
             <div class="textinput">
                 <label for="todo-title">Todo Title</label>
-                <input type="text" id="todoTitle" name="todo-title" required aria-required="true" placeholder="ToDo Title">
+                <input type="text" id="todoTitle" name="todo-title" required aria-required="true" placeholder="Title for Todo is required">
             </div>
 
             <div class="textinput">
                 <label for="description">Description</label>
-                <textarea rows="3" id="todoDesc" name="description" required aria-required="true" placeholder="Todo"></textarea>
+                <textarea rows="3" id="todoDesc" name="description" placeholder="Todo"></textarea>
             </div>
 
             <div class="textinput half">
@@ -89,23 +89,23 @@
             <h2 class="section-title">Your Todo List</h2>
             <h3 id="selectedProject" class="current">Current Project</h3>
             <ul id="appendTodos" class="append-todo">
-                <li id="${index}" class="todo low">
+                <!-- <li id="${index}" class="todo low">
                     <div class="left-todo">
                         <p class="todo-title">French Lesson</p>
                     </div> 
                     <div class="right-todo">
                         <div class="input">
-                            <input type="date" name="duedate" value="${dd}"> 
+                            <input readonly type="date" name="duedate" value="${dd}"> 
                         </div>
                         <button class="toggle-todo interface"><i class="far fa-circle"></i>Complete</button>
                         <button class="edit-todo interface"><i class="fas fa-edit"></i>Edit</button>
                         <button class="delete-todo interface"><i class="fas fa-trash-alt"></i>Delete</button>
+                        <i class="fas fa-expand-arrows-alt"></i>
                     </div>
-                    <details class="bottom">
-                    <summary><i class="fas fa-expand-arrows-alt"></i></summary>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat, commodi? Qui at atque soluta illo repudiandae laudantium non ad corporis! Saepe qui aspernatur exercitationem sapiente suscipit, laudantium quis ad ipsa!</p>
-                </details>
-             </li>
+                    <div id="todoDesc" class="todoDesc">
+                       <p class="desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis id molestiae amet quisquam harum rem alias cum aliquid, suscipit cumque magnam neque. Sit nostrum est veritatis incidunt placeat ex neque!</p>
+                    </div> 
+             </li> -->
             </ul>
             <div class="addNewTodoForm" id="addNewTodoForm">
                 <button>Add New Todo</button>
