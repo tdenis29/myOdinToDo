@@ -58,18 +58,16 @@ header{
 }
 .append-todo{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 .todo{
-    display: grid;
-    grid-template-areas: "left right"
-                         "bottom bottom";
     background-color: whitesmoke;
-    align-items: center;
-    width: 75%;
+    width: 80%;
     border: solid 2px blue;
     border-radius: 5px;
+    margin: .5rem;
 }
 .todo.high{
     border: solid 2px red;
@@ -81,19 +79,21 @@ header{
     border: solid 2px green;
 }
 .left-todo{
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    grid-area: left;
+    width: 20%;
+    /* grid-area: left; */
 }
 .todo-title{
     margin: 0.5rem;
 }
 .right-todo{
-    display: flex;
-    justify-content: space-evenly;
+    display: inline-flex;
+    justify-content: end;
     align-items: center;
-    grid-area: right;
+    width: 70%;
+    /* grid-area: right; */
 }
 .interface{
  margin: 0 .5rem 0 .5rem;
@@ -102,10 +102,11 @@ header{
 .toggle-todo{
     margin: .5rem;
 }
-.bottom{
-    grid-area: bottom;
-    margin: 0.5rem;
-    align-self: center;
+.todoDesc{
+    display: none;
+}
+.desc{
+    padding: .5rem 1.5rem .5rem 1.5rem;
 }
 
 /* Modal */

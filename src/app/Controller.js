@@ -31,6 +31,7 @@ export class Controller {
     handleAddTodo = data => {
         this.model.addTodo(data)
     }
+   
 
 
 

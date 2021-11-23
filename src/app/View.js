@@ -3,6 +3,7 @@ import * as PubSub from "pubsub-js"
 
 export class View {
     constructor(){
+        this.body = document.getElementById('body')
         this.projectForm = document.getElementById('addProject')
         this.appendProjects = document.getElementById('appendProjects')
         this.projectOverlay = document.getElementById("projectOverlay")
@@ -17,9 +18,11 @@ export class View {
         this.todoOverlay = document.getElementById('todoOverlay')
         this.selectedProject = document.getElementById('selectedProject')
         //Update Todos list on add
-        PubSub.subscribe("Changed Todos", (tag, project)=> {
-            this.displayActiveProjectsTodos(project)
+        PubSub.subscribe("Changed Todos", (tag, active)=> {
+            this.displayActiveProjectsTodos(active.active)
         })
+        
+        
     }
     updateProjectsList(arr){
         let projectArr = Array.from(arr)
@@ -43,6 +46,7 @@ export class View {
             }
         });
         this.appendProjects.innerHTML = projectHTML;
+        
     };
     /**
      * @param {none} param - returns data from add Project Form
@@ -67,6 +71,7 @@ export class View {
             if(this.projectSubmitData()){
                 handler(this.projectSubmitData())
                 this.projectOverlay.style.display = "none";
+                this.projectForm.reset()
             } else {
                 console.log('No submit data')
             }
@@ -77,7 +82,7 @@ export class View {
     */
     bindDeleteProject(handler){
      this.appendProjects.addEventListener('click', e => {
-         if(e.target.nodeName == "I"){
+         if(e.target.nodeName === "I"){
              handler(e.target.id)
          } else {
              return 
@@ -88,18 +93,20 @@ export class View {
      * @param {Function} param - Connects this function which toggles the Active prop on the specified Project Object with the Model via the Controller
     */
     bindActiveProject(handler){
-        this.appendProjects.addEventListener('click', e => {
-            if(e.target.nodeName === "LI"){
+        this.appendProjects.addEventListener('click', e => {  
+            console.log(e)
+            e.stopPropagation()
+            console.log(e.target)
+            if(e.target.classList.contains("project-button")){
                handler(e.target.id)
                this.styleActiveProject(e.target.id)
-               PubSub.subscribe("Changed Active", (tag, active) => {
+               PubSub.subscribeOnce("Changed Active", (tag, active) => {
                   this.displayActiveProjectsTodos(active.active)
                })
-                // this.styleActiveProject(e.target.id);
             } else {
                 return 
             }
-        })
+        } )
     }
     bindAddToDo(handler){
         this.todoForm.addEventListener('submit', e => {
@@ -107,6 +114,7 @@ export class View {
             if(this.todoSubmitData()){
                 handler(this.todoSubmitData())
                 this.todoOverlay.style.display = "none";
+                this.todoForm.reset()
             }
         })
     }
@@ -126,17 +134,15 @@ export class View {
 
     }
     displayActiveProjectsTodos(project){
+        if(project === undefined || project === null){
+            return 
+        } else {
         console.log(project)
         let title = project.title
-        if(title === undefined || title === null){
-            title = project.project.title
-        }
         let todoArr = project.todos
-        if(todoArr === undefined || todoArr === null){
-            todoArr = project.project.todos
-        }
         let todoHTML = ''
-        if(todoArr.length == 0){
+        if(todoArr.length === 0){
+            this.selectedProject.innerHTML = `${title}`
             let emptyTodoMessage = `<p>No Todos in this Project, Create One.</p>`
             this.appendTodos.innerHTML = emptyTodoMessage
         } else {
@@ -158,20 +164,42 @@ export class View {
                 </div> 
                 <div class="right-todo">
                     <div class="input">
-                        <input type="date" name="duedate" value="${dd}"> 
+                        <input type="date" readonly name="duedate" value="${dd}"> 
                     </div>
-                    <button class="edit-todo interface"><i class="fas fa-edit"></i>Edit</button>
-                    <button class="priority-todo interface"><i class="fas fa-expand-arrows-alt"></i>Expand</button>
-                    <button class="delete-todo interface"><i class="fas fa-trash-alt"></i>Delete</button>
+                        <button class="edit-todo interface"><i class="fas fa-edit"></i>Edit</button>
+                        <button class="delete-todo interface"><i class="fas fa-trash-alt"></i>Delete</button>
+                        <i class="fas fa-expand-arrows-alt"></i>
                 </div>
-                <div id="${index}Collapsible" class="collapsible-content">
-                    <p>${desc}</p>
-                </div>
+                <div id="todoDesc" class="todoDesc">
+                 <p class="desc">${desc}</p>
+                </div> 
              </li>
              
              `
         })
         this.appendTodos.innerHTML = todoHTML;
     }
+        }
 }
+  loadProjects(){
+      window.addEventListener('load', e => {
+        if(window.localStorage.getItem('theProjects') === null){
+            return 
+        } else {
+            let savedProjects = JSON.parse(window.localStorage.getItem('theProjects') || [] ) 
+            this.updateProjectsList(savedProjects)
+            PubSub.publish('Loaded Projects', {
+                 saved: savedProjects
+            })
+       
+        }
+      })
+    //   if(this.localStorage !== true){
+    //   let savedProjects = JSON.parse(localStorage(localStorage.getItem('theProjects') || [] ) )
+    //   this.updateProjectsList(savedProjects)
+    //   } else {
+    //       return 
+    //   }
+  }
+   
 }
