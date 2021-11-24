@@ -15,8 +15,11 @@ export class Model {
        ]; 
        PubSub.subscribe('Loaded Projects', (tag, saved) => {
         this.projects = saved.saved
-        console.log(this.projects)
+        PubSub.publishSync("LoadedActive", {
+            active: this.findActiveProject()
+        })
     })
+ 
     }
     addProject(data){
         let project = new Project(data, (this.projects.length));
@@ -52,6 +55,7 @@ export class Model {
                 this.projects[i].active = false
             } 
         }
+        console.log(this.projects)
         PubSub.publishSync("Changed Active", {
             active: this.findActiveProject()
         })

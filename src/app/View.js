@@ -21,6 +21,9 @@ export class View {
         PubSub.subscribe("Changed Todos", (tag, active)=> {
             this.displayActiveProjectsTodos(active.active)
         })
+        PubSub.subscribe("LoadedActive", (tag, active) => {
+            this.displayActiveProjectsTodos(active.active)
+        })
         
         
     }
@@ -94,15 +97,12 @@ export class View {
     */
     bindActiveProject(handler){
         this.appendProjects.addEventListener('click', e => {  
-            console.log(e)
-            e.stopPropagation()
-            console.log(e.target)
             if(e.target.classList.contains("project-button")){
                handler(e.target.id)
-               this.styleActiveProject(e.target.id)
                PubSub.subscribeOnce("Changed Active", (tag, active) => {
                   this.displayActiveProjectsTodos(active.active)
                })
+               this.styleActiveProject(e.target.id)
             } else {
                 return 
             }
@@ -137,16 +137,14 @@ export class View {
         if(project === undefined || project === null){
             return 
         } else {
-        console.log(project)
         let title = project.title
         let todoArr = project.todos
         let todoHTML = ''
+        this.selectedProject.innerHTML = `${title}`
         if(todoArr.length === 0){
-            this.selectedProject.innerHTML = `${title}`
             let emptyTodoMessage = `<p>No Todos in this Project, Create One.</p>`
             this.appendTodos.innerHTML = emptyTodoMessage
         } else {
-        this.selectedProject.textContent = `${title}`
         todoArr.forEach((todo, index) => { 
             const {id, title , dd, desc, pri} = todo
             todoHTML += `
@@ -175,7 +173,7 @@ export class View {
                 </div> 
              </li>
              
-             `
+             `.trim()
         })
         this.appendTodos.innerHTML = todoHTML;
     }
@@ -194,12 +192,7 @@ export class View {
        
         }
       })
-    //   if(this.localStorage !== true){
-    //   let savedProjects = JSON.parse(localStorage(localStorage.getItem('theProjects') || [] ) )
-    //   this.updateProjectsList(savedProjects)
-    //   } else {
-    //       return 
-    //   }
+
   }
    
 }
