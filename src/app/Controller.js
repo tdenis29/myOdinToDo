@@ -9,7 +9,6 @@ export class Controller {
         //thisbindings
         //display intital project
         this.view.updateProjectsList(this.model.projects)
-        
         //add projects linkup
         this.view.bindAddProject(this.handleAddProject)
         //delete projects linkup
@@ -17,6 +16,8 @@ export class Controller {
         this.view.bindActiveProject(this.handleActiveProject)
         //add todo
         this.view.bindAddToDo(this.handleAddTodo)
+        //delete todo
+        this.view.bindDeleteTodo(this.handleDeleteTodo)
     }
     handleAddProject = data => {
         this.model.addProject(data)
@@ -30,6 +31,9 @@ export class Controller {
     }
     handleAddTodo = data => {
         this.model.addTodo(data)
+    }
+    handleDeleteTodo = data => {
+        this.model.deleteTodo(data)
     }
    
 
