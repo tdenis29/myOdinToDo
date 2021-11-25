@@ -28,7 +28,6 @@ export class Controller {
     }
     handleActiveProject = data => {
         this.model.toggleActivePropertyonProject(data)
-        
     }
     handleAddTodo = (data)=> {
         this.model.addTodo(data)
@@ -39,10 +38,4 @@ export class Controller {
     handleEditTodo = (data, id) => {
         this.model.editTodo(data, id)
     }
-  
-   
-
-
-
-
 }

@@ -1,4 +1,4 @@
-import { Controller } from "./Controller"
+
 import * as PubSub from "pubsub-js"
 
 export class View {
@@ -109,18 +109,16 @@ export class View {
         } )
         const token = PubSub.subscribe('Changed Active', this.displayActiveProjectsTodos.bind(this));
     }
-    //if update is null we will just add however if update is !== null we will update
-    bindAddToDo(handler, update = null, id = null){
+   
+    bindAddToDo(handler){
         this.todoForm.addEventListener('submit', e => {
             e.preventDefault()
             e.stopPropagation()
-            if(this.todoSubmitData() && update === null){
-                handler(this.todoSubmitData(), update)
+            if(this.todoSubmitData()){
+                handler(this.todoSubmitData())
                 this.todoOverlay.style.display = "none";
                 this.todoForm.reset()
-            } else if (update !== null && id !== null){
-
-            }
+            } 
         })
     }
     bindDeleteTodo(handler){
@@ -210,7 +208,6 @@ export class View {
     }
 }
     displayActiveProjectsTodos = function (msg, active){
-        console.log(active + " View190")
         let project = active.active
         if(project === undefined || project === null){
             return 
@@ -252,8 +249,8 @@ export class View {
                     `
                 }
                 todoHTML += `
-                        <i class="fas fa-edit"></i>Edit</button>
-                        <i class="fas fa-trash-alt"></i>Delete</button>
+                        <i class="fas fa-edit"></i></button>
+                        <i class="fas fa-trash-alt"></i></button>
                         <i class="fas fa-expand-arrows-alt"></i>
                 </div>
                 `; if(desc === "" || desc === undefined){
@@ -295,21 +292,3 @@ export class View {
 }
 
 
-
-// const mySubscriber = function (msg, data) {
-//     console.log( msg, data );
-// };
-
-// add the function to the list of subscribers for a particular topic
-// we're keeping the returned token, in order to be able to unsubscribe
-// from the topic later on
-// var token = PubSub.subscribe('MY TOPIC', mySubscriber);
-
-// publish a topic asynchronously
-// PubSub.publish('MY TOPIC', 'hello world!');
-
-// publish a topic synchronously, which is faster in some environments,
-// but will get confusing when one topic triggers new topics in the
-// same execution chain
-// USE WITH CAUTION, HERE BE DRAGONS!!!
-// PubSub.publishSync('MY TOPIC', 'hello world!');
