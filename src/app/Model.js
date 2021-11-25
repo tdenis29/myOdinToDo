@@ -69,14 +69,13 @@ export class Model {
 
     // TODOS METHODS
     addTodo(data){
-        if(update == null && id == null){
         let todo = new Todo(this.findActiveProject().todos.length, data.todoTitle, data.todoDesc, data.todoPri, data.tododd) 
         this.findActiveProject().todos.push(todo)
         PubSub.publish('Add Todo', {
             active: this.findActiveProject(),
         })
         this.saveProjectstoLocalStorage(this.projects)
-    } 
+    
     }
 
     deleteTodo(data){
