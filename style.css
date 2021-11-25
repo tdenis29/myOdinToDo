@@ -105,12 +105,15 @@ header{
 .todoDesc{
     display: none;
 }
+.todoDesc.expand{
+    display: block;
+}
 .desc{
     padding: .5rem 1.5rem .5rem 1.5rem;
 }
 
 /* Modal */
-.projectOverlay, .todoOverlay {
+.projectOverlay, .todoOverlay, .todoEditOverlay {
     position: absolute;
     top: 0;
     left: 0;
