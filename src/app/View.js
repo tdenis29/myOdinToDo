@@ -17,14 +17,17 @@ export class View {
         this.todoForm = document.getElementById('todoForm')
         this.todoOverlay = document.getElementById('todoOverlay')
         this.selectedProject = document.getElementById('selectedProject')
+        this.todoEditOverlay = document.getElementById('todoEditOverlay')
+        this.todoEditForm = document.getElementById('todoEditForm')
         //Update Todos list on add
         const Addtoken = PubSub.subscribe('Add Todo', this.displayActiveProjectsTodos.bind(this));
         //Update Todos List on load 
         const LoadToken = PubSub.subscribe('Loaded Active', this.displayActiveProjectsTodos.bind(this))
         // Update todos List on Delete
         const deleteToken = PubSub.subscribe("Delete Todo", this.displayActiveProjectsTodos.bind(this))
-        
-       
+        // Update todos List on Edit
+        const editToken = PubSub.subscribe("Edit Todo", this.displayActiveProjectsTodos.bind(this))
+  
     }
     
     updateProjectsList(arr){
@@ -106,26 +109,88 @@ export class View {
         } )
         const token = PubSub.subscribe('Changed Active', this.displayActiveProjectsTodos.bind(this));
     }
- 
-    bindAddToDo(handler){
+    //if update is null we will just add however if update is !== null we will update
+    bindAddToDo(handler, update = null, id = null){
         this.todoForm.addEventListener('submit', e => {
             e.preventDefault()
-            if(this.todoSubmitData()){
-                handler(this.todoSubmitData())
+            e.stopPropagation()
+            if(this.todoSubmitData() && update === null){
+                handler(this.todoSubmitData(), update)
                 this.todoOverlay.style.display = "none";
                 this.todoForm.reset()
+            } else if (update !== null && id !== null){
+
             }
         })
     }
     bindDeleteTodo(handler){
         this.appendTodos.addEventListener('click', e => {
-            console.log(e)
-            if(e.target.classList.contains('delete-todo')){
+            if(e.target.classList.contains('fa-trash-alt')){
                 handler(e.target)
             }
         })
     }
 
+    bindExpandTodo(){
+        this.appendTodos.addEventListener('click', e => {
+            if(e.target.classList.contains('fa-expand-arrows-alt')){
+                let selectedTodo = e.target.parentNode.parentNode.id
+                let todos = document.getElementsByClassName('todo')
+                let todosArr  = Array.from(todos)
+                for(let i = 0; i < todosArr.length; i++){
+                    if(todosArr[i].id === selectedTodo){
+                        todosArr[i].lastChild.previousSibling.classList.toggle('expand')
+                    }
+                }
+            }
+        })
+    }
+
+    todoEditSubmitData(){
+        let todoTitle = document.getElementById("todoEditTitle").value
+        let todoDesc = document.getElementById("todoEditDesc").value
+        let todoPri = document.getElementById('todoEditPri').value
+        let tododd = document.getElementById('todoEditdd').value
+        return {todoTitle, todoDesc, todoPri, tododd}
+    }
+
+    bindEditTodo(handler){
+        this.appendTodos.addEventListener('click', e => {
+            let thisHandler = handler
+            if(e.target.classList.contains('fa-edit')){
+                let selectedTodo = e.target.parentNode.parentNode.id
+                let thatHandler = thisHandler
+                this.todoEditOverlay.style.display = 'block';
+                PubSub.publish("Request Edit", {
+                    selected: selectedTodo
+                })
+                const editToken = PubSub.subscribe('Give To Edit', (tag, todo) => {
+                    this.fillFormForEdit(todo)
+                })
+                this.todoEditForm.addEventListener('submit', e => {
+                    let myHandler = thatHandler
+                    e.preventDefault()
+                    e.stopPropagation()
+                    myHandler(this.todoEditSubmitData(), selectedTodo)
+                    this.todoEditOverlay.style.display = "none";
+                    this.todoEditForm.reset()
+                })
+          
+            }
+       
+        })
+    }
+
+    fillFormForEdit(obj){
+        
+        document.getElementById('todoTitle').value = obj.todo.title
+       
+        document.getElementById('todoDesc').value = obj.todo.desc
+        
+        document.getElementById('todoPri').value = obj.todo.pri
+      
+        document.getElementById('tododd').value = obj.todo.dd
+    }
     /**
      * @param {INT}} param - Takes the id of the Active project and styles it
     */
@@ -145,7 +210,7 @@ export class View {
     }
 }
     displayActiveProjectsTodos = function (msg, active){
-        console.log(active + " View138")
+        console.log(active + " View190")
         let project = active.active
         if(project === undefined || project === null){
             return 
@@ -174,31 +239,49 @@ export class View {
                      <p class="todo-title">${title}</p>
                 </div> 
                 <div class="right-todo">
+                `;if(dd === "" || dd === undefined){
+                    todoHTML += `
+                    <div class="input">
+                        <p>No Dude Date!</p>
+                    </div>`
+                } else if (dd !== ""){
+                    todoHTML += `
                     <div class="input">
                         <input type="date" readonly name="duedate" value="${dd}"> 
                     </div>
-                        <button class="edit-todo interface"><i class="fas fa-edit"></i>Edit</button>
-                        <button class="delete-todo interface"><i class="fas fa-trash-alt"></i>Delete</button>
+                    `
+                }
+                todoHTML += `
+                        <i class="fas fa-edit"></i>Edit</button>
+                        <i class="fas fa-trash-alt"></i>Delete</button>
                         <i class="fas fa-expand-arrows-alt"></i>
                 </div>
-                <div id="todoDesc" class="todoDesc">
-                 <p class="desc">${desc}</p>
-                </div> 
-             </li>
-             
-             `
+                `; if(desc === "" || desc === undefined){
+                    todoHTML += `
+                    <div id="todoDesc" class="todoDesc">
+                        <p class="desc">No Description For This Todo.</p>
+                   </div> 
+                    `
+                } else {
+                    todoHTML += `
+                    <div id="todoDesc" class="todoDesc">
+                        <p class="desc">${desc}</p>
+                    </div> 
+                </li>
+                    `
+                }
         })
         this.appendTodos.innerHTML = todoHTML;
        
         }
     }
 }
+
   loadProjects(){
       window.addEventListener('load', e => {
         if(window.localStorage.getItem('theProjects') === null){
             return 
         } else {
-            console.log( e + ' Get Saved Projects')
             let savedProjects = JSON.parse(window.localStorage.getItem('theProjects') || [] ) 
             this.updateProjectsList(savedProjects)
             PubSub.publish('Loaded Projects', {

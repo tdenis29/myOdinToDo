@@ -22,7 +22,8 @@ addNewTodoForm.addEventListener('click', (e) => {
     todoOverlay.style.display = 'block';
 })
 
-todomodalClose.addEventListener('click', () => {
+todomodalClose.addEventListener('click', (e) => {
+    e.preventDefault()
     todoOverlay.style.display = "none"
     });
 

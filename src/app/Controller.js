@@ -18,6 +18,7 @@ export class Controller {
         this.view.bindAddToDo(this.handleAddTodo)
         //delete todo
         this.view.bindDeleteTodo(this.handleDeleteTodo)
+        this.view.bindEditTodo(this.handleEditTodo)
     }
     handleAddProject = data => {
         this.model.addProject(data)
@@ -29,12 +30,16 @@ export class Controller {
         this.model.toggleActivePropertyonProject(data)
         
     }
-    handleAddTodo = data => {
+    handleAddTodo = (data)=> {
         this.model.addTodo(data)
     }
     handleDeleteTodo = data => {
         this.model.deleteTodo(data)
     }
+    handleEditTodo = (data, id) => {
+        this.model.editTodo(data, id)
+    }
+  
    
 
 

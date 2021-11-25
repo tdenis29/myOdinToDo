@@ -72,6 +72,44 @@
         </div>
     </div>
 
+    <div class="todoEditOverlay" id="todoEditOverlay">
+        <div class="modal">
+            <h4>Edit This Todo</h4>
+          <form id="todoEditForm">
+            <div class="textinput">
+                <label for="todo-title">Todo Title</label>
+                <input type="text" id="todoEditTitle" name="todo-title" required aria-required="true" placeholder="Title for Todo is required">
+            </div>
+
+            <div class="textinput">
+                <label for="description">Description</label>
+                <textarea rows="3" id="todoEditDesc" name="description" placeholder="Todo"></textarea>
+            </div>
+
+            <div class="textinput half">
+                <div class="otherinput">
+                    <label for="priority">ToDo Priority</label>
+                    <select id="todoEditPri" name="priority" class="textinput">
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                </div>
+
+                <div class="otherinput">
+                    <label for="duedate">Due Date:</label>
+                    <input id="todoEditdd" type="date" name="duedate"> 
+                </div>
+            </div>
+
+                <div class="button-con">
+                    <button type="submit" class="addBook">Confirm Edit</button>
+                 </div>
+                <button class="modal-close" id="todomodalClose">X</button>
+          </form>
+        </div>
+    </div>
+
     <!-- End Modals -->
      <div class="container">
         <div class="project-container">
