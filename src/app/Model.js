@@ -92,17 +92,31 @@ export class Model {
     editTodo(data, id){
       let active = this.findActiveProject()
       for(let i = 0; i < active.todos.length; i++){
-          if(active.todos[i].id == id ){
+          if(active.todos[i].id === parseInt(id) ){
               active.todos[i].title = data.todoTitle
               active.todos[i].desc = data.todoDesc
               active.todos[i].dd = data.tododd
               active.todos[i].pri = data.todoPri
               PubSub.publish("Edit Todo", {
-                  active: this.findActiveProject()
+                  active: this.findActiveProject(),
+                  
               })
+              
           }
       }
       this.saveProjectstoLocalStorage(this.projects)
+    }
+
+    markTodoComplete(){
+        let active = this.findActiveProject()
+        PubSub.subscribe('Mark Complete', (tag, selected) => {
+            for(let i = 0; i < active.todos.length; i++){
+                if(active.todos[i].id === parseInt(selected)){
+                    active.todos[i].complete = true
+                }
+            }
+            console.log(active.todos)
+        })
     }
     //Set Projects to Local Storage
     saveProjectstoLocalStorage(){

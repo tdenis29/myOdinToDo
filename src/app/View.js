@@ -151,25 +151,23 @@ export class View {
         let tododd = document.getElementById('todoEditdd').value
         return {todoTitle, todoDesc, todoPri, tododd}
     }
+    // So step one is 
 
     bindEditTodo(handler){
         this.appendTodos.addEventListener('click', e => {
-            let thisHandler = handler
             if(e.target.classList.contains('fa-edit')){
                 let selectedTodo = e.target.parentNode.parentNode.id
-                let thatHandler = thisHandler
                 this.todoEditOverlay.style.display = 'block';
                 PubSub.publish("Request Edit", {
                     selected: selectedTodo
                 })
                 const editToken = PubSub.subscribe('Give To Edit', (tag, todo) => {
-                    this.fillFormForEdit(todo)
+                    this.fillFormForEdit(todo)  
                 })
                 this.todoEditForm.addEventListener('submit', e => {
-                    let myHandler = thatHandler
                     e.preventDefault()
                     e.stopPropagation()
-                    myHandler(this.todoEditSubmitData(), selectedTodo)
+                    handler(this.todoEditSubmitData(), selectedTodo)
                     this.todoEditOverlay.style.display = "none";
                     this.todoEditForm.reset()
                 })
@@ -179,15 +177,27 @@ export class View {
         })
     }
 
+    bindCompleteTodo(){
+        this.appendTodos.addEventListener('click', e => {
+            if(e.target.classList.contains('fa-circle')){
+                let selectedTodo = e.target.parentNode.parentNode.id
+                PubSub.publish('Mark Complete'), {
+                    selected: selectedTodo
+                }
+            }
+        })
+
+    }
+
     fillFormForEdit(obj){
         
-        document.getElementById('todoTitle').value = obj.todo.title
+        document.getElementById('todoEditTitle').value = obj.todo.title
        
-        document.getElementById('todoDesc').value = obj.todo.desc
+        document.getElementById('todoEditDesc').value = obj.todo.desc
         
-        document.getElementById('todoPri').value = obj.todo.pri
+        document.getElementById('todoEditPri').value = obj.todo.pri
       
-        document.getElementById('tododd').value = obj.todo.dd
+        document.getElementById('todoEditdd').value = obj.todo.dd
     }
     /**
      * @param {INT}} param - Takes the id of the Active project and styles it
@@ -207,6 +217,7 @@ export class View {
         }
     }
 }
+
     displayActiveProjectsTodos = function (msg, active){
         let project = active.active
         if(project === undefined || project === null){

@@ -17,6 +17,8 @@ projectmodalClose.addEventListener('click', () => {
 const addNewTodoForm = document.getElementById('addNewTodoForm');
 const todoOverlay = document.getElementById('todoOverlay')
 const todomodalClose = document.getElementById("todomodalClose");
+const todoEditModalClose = document.getElementById('todoEditModalClose')
+const todoEditOverlay = document.getElementById('todoEditOverlay')
 
 addNewTodoForm.addEventListener('click', (e) => {
     todoOverlay.style.display = 'block';
@@ -27,7 +29,10 @@ todomodalClose.addEventListener('click', (e) => {
     todoOverlay.style.display = "none"
     });
 
-
+todoEditModalClose.addEventListener('click', e => {
+    e.preventDefault()
+    todoEditOverlay.style.display = "none"
+})
 
 
 
