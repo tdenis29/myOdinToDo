@@ -68,7 +68,9 @@ header{
     border: solid 2px blue;
     border-radius: 5px;
     margin: .5rem;
+    position: relative;
 }
+
 .todo.high{
     border: solid 2px red;
 }
@@ -78,6 +80,32 @@ header{
 .todo.low{
     border: solid 2px green;
 }
+.todo.high.complete::before{
+    content: "";
+    height: 1px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+
+}
+.todo.medium.complete::before{
+    content: "";
+    height: 1px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+}
+.todo.low.complete::before{
+    content: "";
+    height: 1px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+}
+
 .left-todo{
     display: inline-flex;
     justify-content: center;
