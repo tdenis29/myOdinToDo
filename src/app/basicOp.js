@@ -34,6 +34,14 @@ todoEditModalClose.addEventListener('click', e => {
     todoEditOverlay.style.display = "none"
 })
 
+// Hamburger For mobile
 
+//modal
+let hamburger = document.getElementById('hamburger');
+let projectcontainer = document.getElementById('projectcontainer')
+
+hamburger.addEventListener('click', (e) => {
+    projectcontainer.classList.toggle('open')
+});
 
 })();

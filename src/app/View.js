@@ -79,7 +79,9 @@ export class View {
                 this.projectOverlay.style.display = "none";
                 this.projectForm.reset()
             } else {
-                console.log('No submit data')
+                if(this.projectSubmitData() === ""){
+                    alert("Project must have a title")
+                }
             }
         } )
     }
@@ -283,7 +285,7 @@ export class View {
                         <p class="desc">No Description For This Todo.</p>
                      `;if(dd === "" || dd === undefined){
                         todoHTML += `
-                        <div class="input">
+                        <div class="input desc">
                             <p>No Dude Date!</p>
                         </div>
                         </div>`
@@ -292,7 +294,7 @@ export class View {
                     todoHTML += `
                     <div id="todoDesc" class="todoDesc">
                         <p class="desc">${desc}</p>
-                        <div class="input">
+                        <div class="input desc">
                         <p> This is due on: </p>
                         <input type="date" readonly name="duedate" value="${dd}"> 
                     </div>
