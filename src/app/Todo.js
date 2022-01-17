@@ -5,6 +5,6 @@ export class Todo {
         this.dd = dd
         this.desc = desc
         this.pri = pri 
-        this.comeplete = complete
+        this.complete = complete
     }
 }

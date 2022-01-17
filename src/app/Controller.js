@@ -19,6 +19,7 @@ export class Controller {
         //delete todo
         this.view.bindDeleteTodo(this.handleDeleteTodo)
         this.view.bindEditTodo(this.handleEditTodo)
+        this.view.bindMarkComplete(this.handleMarkComplete)
     }
     handleAddProject = data => {
         this.model.addProject(data)
@@ -37,5 +38,8 @@ export class Controller {
     }
     handleEditTodo = (data, id) => {
         this.model.editTodo(data, id)
+    }
+    handleMarkComplete = data => {
+        this.model.markTodoComplete(data)
     }
 }

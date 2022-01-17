@@ -107,16 +107,19 @@ export class Model {
       this.saveProjectstoLocalStorage(this.projects)
     }
 
-    markTodoComplete(){
+    markTodoComplete(id){
         let active = this.findActiveProject()
-        PubSub.subscribe('Mark Complete', (tag, selected) => {
-            for(let i = 0; i < active.todos.length; i++){
-                if(active.todos[i].id === parseInt(selected)){
-                    active.todos[i].complete = true
-                }
+        for(let i = 0; i < active.todos.length; i++){
+            if(active.todos[i].id === parseInt(id) ){
+                active.todos[i].complete = true;
+                // PubSub.publish('Mark Complete', {
+                //     active: this.findActiveProject()
+                // })
             }
-            console.log(active.todos)
-        })
+         
+        }
+   
+   
     }
     //Set Projects to Local Storage
     saveProjectstoLocalStorage(){

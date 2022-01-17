@@ -27,6 +27,7 @@ export class View {
         const deleteToken = PubSub.subscribe("Delete Todo", this.displayActiveProjectsTodos.bind(this))
         // Update todos List on Edit
         const editToken = PubSub.subscribe("Edit Todo", this.displayActiveProjectsTodos.bind(this))
+        // const completeToken = PubSub.subscribe("Mark Complete", this.displayActiveProjectsTodos.bind(this))
   
     }
     
@@ -133,6 +134,7 @@ export class View {
         this.appendTodos.addEventListener('click', e => {
             if(e.target.classList.contains('fa-expand-arrows-alt')){
                 let selectedTodo = e.target.parentNode.parentNode.id
+                console.log(e.target.parentNode.parentNode.id)
                 let todos = document.getElementsByClassName('todo')
                 let todosArr  = Array.from(todos)
                 for(let i = 0; i < todosArr.length; i++){
@@ -177,17 +179,27 @@ export class View {
         })
     }
 
-    bindCompleteTodo(){
+    bindMarkComplete(handler){
         this.appendTodos.addEventListener('click', e => {
             if(e.target.classList.contains('fa-circle')){
-                let selectedTodo = e.target.parentNode.parentNode.id
-                PubSub.publish('Mark Complete'), {
-                    selected: selectedTodo
-                }
+                let selectedTodo = e.target.parentNode.parentNode.parentNode.id
+                handler(selectedTodo)
+                this.visuallyMarkComplete(selectedTodo)
             }
         })
-
     }
+
+    visuallyMarkComplete(selectedTodo){
+        let todos = document.getElementsByClassName('todo')
+        let todosArr  = Array.from(todos)
+        for(let i = 0; i < todosArr.length; i++){
+            if(todosArr[i].id === selectedTodo){
+                todosArr[i].classList.toggle('complete')
+            }
+        }
+    }
+
+
 
     fillFormForEdit(obj){
         
@@ -232,13 +244,13 @@ export class View {
             this.appendTodos.textContent = emptyTodoMessage
         } else {
         todoArr.forEach((todo, index) => { 
-            const {id, title , dd, desc, pri} = todo
+            const {id, title , dd, desc, pri, complete} = todo
             todoHTML += `
             `;if(pri === "High"){
               todoHTML += `<li id="${index}" class="todo high">`
-            } else if (pri === "Medium"){
+            } else if (pri === "Medium") {
                 todoHTML += `<li id="${index}" class="todo medium">`
-            } else {
+            } else if (pri === "Low"){
                 todoHTML += `<li id="${index}" class="todo low">`
             }
             todoHTML += `
@@ -277,6 +289,7 @@ export class View {
                     </div> 
                 </li>
                     `
+             
                 }
         })
         this.appendTodos.innerHTML = todoHTML;
