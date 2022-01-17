@@ -259,18 +259,19 @@ export class View {
                      <p class="todo-title">${title}</p>
                 </div> 
                 <div class="right-todo">
-                `;if(dd === "" || dd === undefined){
-                    todoHTML += `
-                    <div class="input">
-                        <p>No Dude Date!</p>
-                    </div>`
-                } else if (dd !== ""){
-                    todoHTML += `
-                    <div class="input">
-                        <input type="date" readonly name="duedate" value="${dd}"> 
-                    </div>
-                    `
-                }
+                 `;
+                //  if(dd === "" || dd === undefined){
+                // //     todoHTML += `
+                // //     <div class="input">
+                // //         <p>No Dude Date!</p>
+                // //     </div>`
+                // // } else if (dd !== ""){
+                // //     todoHTML += `
+                // //     <div class="input">
+                // //         <input type="date" readonly name="duedate" value="${dd}"> 
+                // //     </div>
+                // //     `
+                // // }
                 todoHTML += `
                         <i class="fas fa-edit"></i></button>
                         <i class="fas fa-trash-alt"></i></button>
@@ -280,13 +281,22 @@ export class View {
                     todoHTML += `
                     <div id="todoDesc" class="todoDesc">
                         <p class="desc">No Description For This Todo.</p>
-                   </div> 
-                    `
+                     `;if(dd === "" || dd === undefined){
+                        todoHTML += `
+                        <div class="input">
+                            <p>No Dude Date!</p>
+                        </div>
+                        </div>`
+                     } 
                 } else {
                     todoHTML += `
                     <div id="todoDesc" class="todoDesc">
                         <p class="desc">${desc}</p>
-                    </div> 
+                        <div class="input">
+                        <p> This is due on: </p>
+                        <input type="date" readonly name="duedate" value="${dd}"> 
+                    </div>
+                    </div>
                 </li>
                     `
              
