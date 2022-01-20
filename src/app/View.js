@@ -31,7 +31,9 @@ export class View {
         // const completeToken = PubSub.subscribe("Mark Complete", this.displayActiveProjectsTodos.bind(this))
   
     }
-    
+     /**
+     * @param {Function} param - Render Function for the Projects section to show new projects as they are added or deleted using PubSub Data on line 13 View.js
+    */
     updateProjectsList(arr){
         let projectArr = Array.from(arr)
         let projectHTML = "";
@@ -71,6 +73,9 @@ export class View {
         let projecttitle = document.getElementById('projectTitle').value
         return projecttitle;
     }
+        /**
+     * @param {none} param - returns data from add todo Form
+    */
     todoSubmitData(){
         let todoTitle = document.getElementById("todoTitle").value
         let todoDesc = document.getElementById("todoDesc").value
@@ -124,7 +129,9 @@ export class View {
         } )
         const token = PubSub.subscribe('Changed Active', this.displayActiveProjectsTodos.bind(this));
     }
-   
+    /**
+     * @param {Function} param - Connects this function which adds a new Todo with the Model via the Controller
+    */
     bindAddToDo(handler){
         this.todoForm.addEventListener('submit', e => {
             e.preventDefault()
@@ -192,7 +199,9 @@ export class View {
        
         })
     }
-
+    /**
+     * @param {OBJ} param - Fills form with data received from PubSub if only one item needs to be changed on Edit Todo
+    */
     fillFormForEdit(obj){
 
         console.log(obj)
