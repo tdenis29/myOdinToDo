@@ -153,7 +153,7 @@ export class View {
                 let todosArr  = Array.from(todos)
                 for(let i = 0; i < todosArr.length; i++){
                     if(todosArr[i].id === selectedTodo){
-                        todosArr[i].lastChild.previousSibling.classList.toggle('expand')
+                        todosArr[i].lastChild.previousSibling.nextSibling.classList.toggle('expand')
                     }
                 }
             }
