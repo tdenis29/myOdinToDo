@@ -13,13 +13,13 @@ export class Model {
          active: true
         }
        ]; 
-       PubSub.subscribe('Loaded Projects', (tag, saved) => {
+       const loadToken = PubSub.subscribe('Loaded Projects', (tag, saved) => {
         this.projects = saved.saved
         PubSub.publish("Loaded Active", {
             active: this.findActiveProject()
         })
     })
-    PubSub.subscribe('Request Edit', (tag, selected) => {
+    const editToken = PubSub.subscribe('Request Edit', (tag, selected) => {
         let active = this.findActiveProject()
         for(let i = 0; i < active.todos.length; i++){
             if(active.todos[i].id === parseInt(selected.selected)){
@@ -99,11 +99,13 @@ export class Model {
               active.todos[i].desc = data.todoDesc
               active.todos[i].dd = data.tododd
               active.todos[i].pri = data.todoPri
-              PubSub.publish("Edit Todo", {
-                  active: this.findActiveProject(),
-                  
+              console.log(active.todos[i])
+              PubSub.publishSync("Edit Todo", {
+                  active: active
               })
               
+          } else {
+              return
           }
       }
       this.saveProjectstoLocalStorage(this.projects)

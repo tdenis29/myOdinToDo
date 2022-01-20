@@ -153,7 +153,7 @@ export class View {
                 let todosArr  = Array.from(todos)
                 for(let i = 0; i < todosArr.length; i++){
                     if(todosArr[i].id === selectedTodo){
-                        todosArr[i].lastChild.previousSibling.nextSibling.classList.toggle('expand')
+                        todosArr[i].lastChild.previousSibling.classList.toggle('expand')
                     }
                 }
             }
@@ -174,15 +174,15 @@ export class View {
             if(e.target.classList.contains('fa-edit')){
                 let selectedTodo = e.target.parentNode.parentNode.id
                 this.todoEditOverlay.style.display = 'block';
+
                 PubSub.publish("Request Edit", {
                     selected: selectedTodo
+                    
                 })
                 const editToken = PubSub.subscribe('Give To Edit', (tag, todo) => {
                     this.fillFormForEdit(todo)  
                 })
                 this.todoEditForm.addEventListener('submit', e => {
-                    e.preventDefault()
-                    e.stopPropagation()
                     handler(this.todoEditSubmitData(), selectedTodo)
                     this.todoEditOverlay.style.display = "none";
                     this.todoEditForm.reset()
@@ -191,6 +191,19 @@ export class View {
             }
        
         })
+    }
+
+    fillFormForEdit(obj){
+
+        console.log(obj)
+
+        document.getElementById('todoEditTitle').value = obj.todo.title
+       
+        document.getElementById('todoEditDesc').value = obj.todo.desc
+        
+        document.getElementById('todoEditPri').value = obj.todo.pri
+      
+        document.getElementById('todoEditdd').value = obj.todo.dd
     }
 
     bindMarkComplete(handler){
@@ -215,16 +228,6 @@ export class View {
 
 
 
-    fillFormForEdit(obj){
-        
-        document.getElementById('todoEditTitle').value = obj.todo.title
-       
-        document.getElementById('todoEditDesc').value = obj.todo.desc
-        
-        document.getElementById('todoEditPri').value = obj.todo.pri
-      
-        document.getElementById('todoEditdd').value = obj.todo.dd
-    }
     /**
      * @param {INT}} param - Takes the id of the Active project and styles it
     */

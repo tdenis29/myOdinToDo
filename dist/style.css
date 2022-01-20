@@ -219,11 +219,15 @@ header{
  margin: 0 .5rem 0 .5rem;
 
 }
-.fas{
-    padding-left: .5rem;
-}
+
 .fa-circle{
     color: white;
+}
+.fa-edit:hover{
+    color: green;
+}
+.fa-expand-arrows-alt:hover{
+    color: yellow;
 }
 .toggle-todo{
     margin: .5rem;
