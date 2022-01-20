@@ -24,16 +24,15 @@
     <!-- Modals -->
     <div class="projectOverlay hidden" id="projectOverlay">
         <div class="modal">
-            <h4>Add New Project</h4>
-
-          <form id="addProject" novalidate>
+            <h4 class="project-modal-title">Add New Project</h4>
+          <form id="addProject">
             <div class="textinput">
                 <label for="project-title">Project Title</label>
-                <input type="text" id="projectTitle" name="project-title" required aria-required="true" placeholder="Project Title">
+                <input required type="text" id="projectTitle" name="project-title" required aria-required="true" placeholder="Projects must have a title">
             </div>
 
             <div class="button-con">
-                <button type="submit" class="addBook">Add Project</button>
+                <button id="addProjectConfirm" type="submit" class="addBook">Add Project</button>
               
             </div>
                 <button class="modal-close" id="projectmodalClose">X</button>
@@ -129,7 +128,7 @@
             </ul>
 
             <div class="addNewProjectButton">
-                <button id="addNewProjectForm">Add New Project</button>
+                <button id="addNewProjectForm"><i class="fas fa-plus"></i></button>
             </div>
         </div>
         <!-- End sidebar Menu  -->
@@ -139,8 +138,11 @@
         <div class="todo-container">
 
             <div class="title-container">
-                <h2 class="section-title">Your Todo List</h2>
-                <h3 id="selectedProject" class="current">Current Project</h3>
+                <!-- <h2 class="section-title">Your Todo List</h2> -->
+                
+                    <h3 id="selectedProject" class="current"></h3>
+                    <p id="emptyTodo" class="emptyTodoMessage"></p>
+                
             </div>
 
             <ul id="appendTodos" class="append-todo">

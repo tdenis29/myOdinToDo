@@ -17,6 +17,7 @@ export class View {
         this.todoForm = document.getElementById('todoForm')
         this.todoOverlay = document.getElementById('todoOverlay')
         this.selectedProject = document.getElementById('selectedProject')
+        this.emptyTodoMessage = document.getElementById('emptyTodo')
         this.todoEditOverlay = document.getElementById('todoEditOverlay')
         this.todoEditForm = document.getElementById('todoEditForm')
         //Update Todos list on add
@@ -38,17 +39,26 @@ export class View {
             let title = project.title;
             if(!project.active){
             projectHTML += `
-            <li id="${index}" class="project-button">
-                ${title}
-                <button class="deleteProject"><i id="${index}" class="fas fa-trash-alt"></i></button>
-            </li>
+            <div id="${index}" class="project-button">
+                <li>
+                    ${title}
+                </li>
+            
+                <div>
+                 <button class="deleteProject"><i id="${index}" class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
         `
             } else {
                 projectHTML += `
-                <li id="${index}" class="project-button active">
+            <div id="${index}" class="project-button active">
+                <li>
                     ${title}
-                    <button class="deleteProject"><i id="${index}" class="fas fa-trash-alt"></i></button>
                 </li>
+                <div>
+                 <button class="deleteProject"><i id="${index}" class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
                 `
             }
         });
@@ -79,9 +89,7 @@ export class View {
                 this.projectOverlay.style.display = "none";
                 this.projectForm.reset()
             } else {
-                if(this.projectSubmitData() === ""){
-                    alert("Project must have a title")
-                }
+               
             }
         } )
     }
@@ -91,8 +99,11 @@ export class View {
     bindDeleteProject(handler){
      this.appendProjects.addEventListener('click', e => {
          if(e.target.nodeName === "I"){
+             let result = confirm("Delete This Project?")
+             if(result){
              handler(e.target.id)
              this.appendTodos.innerHTML = "";
+             }
          } else {
              return 
          }
@@ -103,6 +114,7 @@ export class View {
     */
     bindActiveProject(handler){
         this.appendProjects.addEventListener('click', e => {  
+            e.stopPropagation()
             if(e.target.classList.contains("project-button")){
                handler(e.target.id)
                this.styleActiveProject(e.target.id)
@@ -242,8 +254,7 @@ export class View {
         let todoHTML = '';
         this.selectedProject.textContent = `${title}`;
         if(todoArr.length === 0){
-            let emptyTodoMessage = `No Todos in this Project, Create One.`
-            this.appendTodos.textContent = emptyTodoMessage
+            this.emptyTodoMessage.textContent = `No Todos in this Project... Create One!`
         } else {
         todoArr.forEach((todo, index) => { 
             const {id, title , dd, desc, pri, complete} = todo
@@ -257,23 +268,11 @@ export class View {
             }
             todoHTML += `
                 <div class="left-todo">
-                    <button class="toggle-todo interface"><i class="far fa-circle"></i></button>
+                    <button class="toggle-todo interface"><i class="fas fa-circle"></i></button>
                      <p class="todo-title">${title}</p>
                 </div> 
                 <div class="right-todo">
                  `;
-                //  if(dd === "" || dd === undefined){
-                // //     todoHTML += `
-                // //     <div class="input">
-                // //         <p>No Dude Date!</p>
-                // //     </div>`
-                // // } else if (dd !== ""){
-                // //     todoHTML += `
-                // //     <div class="input">
-                // //         <input type="date" readonly name="duedate" value="${dd}"> 
-                // //     </div>
-                // //     `
-                // // }
                 todoHTML += `
                         <i class="fas fa-edit"></i></button>
                         <i class="fas fa-trash-alt"></i></button>
