@@ -253,10 +253,13 @@ export class View {
         let todoArr = project.todos;
         let todoHTML = '';
         this.selectedProject.textContent = `${title}`;
+        console.log(todoArr.length)
         if(todoArr.length === 0){
             this.emptyTodoMessage.textContent = `No Todos in this Project... Create One!`
+            this.appendTodos.innerHTML = "";
         } else {
         todoArr.forEach((todo, index) => { 
+            this.emptyTodoMessage.textContent = "";
             const {id, title , dd, desc, pri, complete} = todo
             todoHTML += `
             `;if(pri === "High"){
@@ -300,11 +303,9 @@ export class View {
                     </div>
                 </li>
                     `
-             
                 }
         })
         this.appendTodos.innerHTML = todoHTML;
-       
         }
     }
 }

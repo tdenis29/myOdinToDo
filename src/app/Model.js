@@ -38,6 +38,7 @@ export class Model {
             projects: this.projects,
         })
         this.saveProjectstoLocalStorage(this.projects)
+
     }
     deleteProject(id){
       parseInt(id)
@@ -61,6 +62,7 @@ export class Model {
             active: this.findActiveProject()
         });
         this.saveProjectstoLocalStorage(this.projects)  
+     
     }
 
     findActiveProject(){
