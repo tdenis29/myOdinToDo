@@ -73,6 +73,9 @@ header{
     -webkit-backdrop-filter: blur( 5px );
     border-radius: 50%;
 }
+#addNewProjectForm:hover{
+    background: blue;
+}
 .fa-plus{
    text-align: center;
    padding: .5rem;
@@ -250,7 +253,13 @@ header{
     -webkit-backdrop-filter: blur( 5px );
     border-radius: 50%;
 }
+.addNewTodoForm:hover{
+    background: blue;
+}
+.addNewProjectForm:hover{
+    background: blue;
 
+}
 /* Modal */
 .projectOverlay, .todoOverlay, .todoEditOverlay {
     position: absolute;
@@ -274,9 +283,9 @@ header{
         border-radius: 5px;
         padding: 1.5rem 1rem;
         z-index: 100;
-        backdrop-filter: blur(8px) saturate(200%);
-        -webkit-backdrop-filter: blur(8px) saturate(200%);
-        background-color: rgba(4, 116, 255, 0.5);
+        backdrop-filter: blur(4px) saturate(200%);
+        -webkit-backdrop-filter: blur(4px) saturate(200%);
+        background-color: rgba(0, 0, 119, 0.35);
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.125);
         }
@@ -298,13 +307,18 @@ header{
             height: 2rem;
             font-size: 1.125rem;
             padding-left: .5rem;
-            background-color: whitesmoke;
+            background: rgba( 255, 255, 255, 0.80 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 10.5px );
+            -webkit-backdrop-filter: blur( 10.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
             border: none;
             transition: all .5s ease-out;
             margin: .5rem;
             flex: 1;
-            border:rgba(13, 21, 109, 1) solid 1px;
-            border-radius: 5px;
+            
+         
             }
             .textinput textarea{
                 display: flex;
@@ -316,8 +330,12 @@ header{
                 transition: all .5s ease-out;
                 margin: .5rem;
                 flex: 1;
-                border:rgba(13, 21, 109, 1) solid 1px;
-                border-radius: 5px;
+                background: rgba( 255, 255, 255, 0.80 );
+                box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+                backdrop-filter: blur( 10.5px );
+                -webkit-backdrop-filter: blur( 10.5px );
+                border-radius: 10px;
+                border: 1px solid rgba( 255, 255, 255, 0.18 );
                 height: 5rem;
             }
             .otherinput input, select{
@@ -326,8 +344,12 @@ header{
                 height: 2rem;
                 font-size: 1.125rem;
                 padding-left: .5rem;
-                background-color: whitesmoke;
-                border: none;
+                background: rgba( 255, 255, 255, 0.80 );
+                box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+                backdrop-filter: blur( 10.5px );
+                -webkit-backdrop-filter: blur( 10.5px );
+                border-radius: 10px;
+                border: 1px solid rgba( 255, 255, 255, 0.18 );
                 transition: all .5s ease-out;
                 margin: .5rem;
                 flex: 1;
@@ -346,6 +368,10 @@ header{
         input::placeholder {
             font-style: italic;
         }
+        textarea::placeholder{
+            font-style: italic;
+        }
+      
         .modal-close {
             position: absolute;
             right: 15px;
@@ -356,6 +382,7 @@ header{
             width: 2.5rem;
             height: 2.5rem;
             color: red;
+            border-radius: 10px;
             }
         
             .button-con{
@@ -448,7 +475,6 @@ header{
 .todo{
     background-color: whitesmoke;
     width: 80%;
-    border: solid 2px blue;
     border-radius: 5px;
     margin: .5rem;
     position: relative;
