@@ -160,7 +160,8 @@ export class View {
                 let todosArr  = Array.from(todos)
                 for(let i = 0; i < todosArr.length; i++){
                     if(todosArr[i].id === selectedTodo){
-                        todosArr[i].lastChild.previousSibling.classList.toggle('expand')
+                        // console.log(todosArr[i].lastChild.previousSibling.nextSibling)
+                        todosArr[i].lastChild.previousSibling.nextSibling.classList.toggle('expand')
                     }
                 }
             }
@@ -300,6 +301,7 @@ export class View {
                         todoHTML += `
                         <div class="input desc">
                             <p>No Dude Date!</p>
+                            <input type="date" readonly name="duedate"> 
                         </div>
                         </div>`
                      } 
