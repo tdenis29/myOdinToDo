@@ -183,14 +183,18 @@ export class View {
                 let selectedTodo = e.target.parentNode.parentNode.id
                 this.todoEditOverlay.style.display = 'block';
 
-                PubSub.publish("Request Edit", {
+                PubSub.publishSync("Request Edit", {
                     selected: selectedTodo
                     
                 })
                 const editToken = PubSub.subscribe('Give To Edit', (tag, todo) => {
                     this.fillFormForEdit(todo)  
                 })
+                PubSub.unsubscribe(editToken);
+                
                 this.todoEditForm.addEventListener('submit', e => {
+                    e.preventDefault()
+                    
                     handler(this.todoEditSubmitData(), selectedTodo)
                     this.todoEditOverlay.style.display = "none";
                     this.todoEditForm.reset()
@@ -310,8 +314,8 @@ export class View {
                     <div id="todoDesc" class="todoDesc">
                         <p class="desc">${desc}</p>
                         <div class="input desc">
-                        <p> This is due on: </p>
-                        <input type="date" readonly name="duedate" value="${dd}"> 
+                            <p> This is due on: </p>
+                            <input type="date" readonly name="duedate" value="${dd}"> 
                     </div>
                     </div>
                 </li>
@@ -330,7 +334,7 @@ export class View {
         } else {
             let savedProjects = JSON.parse(window.localStorage.getItem('theProjects') || [] ) 
             this.updateProjectsList(savedProjects)
-            PubSub.publish('Loaded Projects', {
+            PubSub.publishSync('Loaded Projects', {
                  saved: savedProjects
             })
        

@@ -15,7 +15,7 @@ export class Model {
        ]; 
        const loadToken = PubSub.subscribe('Loaded Projects', (tag, saved) => {
         this.projects = saved.saved
-        PubSub.publish("Loaded Active", {
+        PubSub.publishSync("Loaded Active", {
             active: this.findActiveProject()
         })
     })
@@ -23,7 +23,7 @@ export class Model {
         let active = this.findActiveProject()
         for(let i = 0; i < active.todos.length; i++){
             if(active.todos[i].id === parseInt(selected.selected)){
-                PubSub.publish("Give To Edit", {
+                PubSub.publishSync("Give To Edit", {
                     todo : active.todos[i]
                 })
             }
@@ -43,7 +43,7 @@ export class Model {
     deleteProject(id){
       parseInt(id)
       let removed = this.projects.splice(id, 1);
-      PubSub.publish("Changed Projects", {
+      PubSub.publishSync("Changed Projects", {
           projects: this.projects
       })
       this.saveProjectstoLocalStorage(this.projects)
@@ -58,7 +58,7 @@ export class Model {
                 this.projects[i].active = false
             } 
         }
-        PubSub.publish('Changed Active', {
+        PubSub.publishSync('Changed Active', {
             active: this.findActiveProject()
         });
         this.saveProjectstoLocalStorage(this.projects)  
@@ -73,7 +73,7 @@ export class Model {
     addTodo(data){
         let todo = new Todo(this.findActiveProject().todos.length, data.todoTitle, data.todoDesc, data.todoPri, data.tododd) 
         this.findActiveProject().todos.push(todo)
-        PubSub.publish('Add Todo', {
+        PubSub.publishSync('Add Todo', {
             active: this.findActiveProject(),
         })
         this.saveProjectstoLocalStorage(this.projects)
@@ -84,7 +84,7 @@ export class Model {
         let id = parseInt(data.parentNode.parentNode.id)
         let active = this.findActiveProject()
         let removedTodo = active.todos.splice(id, 1)
-        PubSub.publish('Delete Todo', {
+        PubSub.publishSync('Delete Todo', {
             active: active
         })
         this.saveProjectstoLocalStorage(this.projects)
