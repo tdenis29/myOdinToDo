@@ -204,8 +204,7 @@ export class View {
     */
     fillFormForEdit(obj){
 
-        console.log(obj)
-
+       
         document.getElementById('todoEditTitle').value = obj.todo.title
        
         document.getElementById('todoEditDesc').value = obj.todo.desc

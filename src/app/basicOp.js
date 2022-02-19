@@ -1,4 +1,4 @@
-const basicOp = (() => {
+export const basicOp = (() => {
 // Project modal
 //open modal
 const addNewProjectForm = document.getElementById('addNewProjectForm');
