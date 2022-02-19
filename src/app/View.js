@@ -188,13 +188,12 @@ export class View {
                     
                 })
                 const editToken = PubSub.subscribe('Give To Edit', (tag, todo) => {
-                    this.fillFormForEdit(todo)  
+                    this.fillFormForEdit(todo) 
+                    PubSub.unsubscribe(editToken); 
                 })
-                PubSub.unsubscribe(editToken);
                 
                 this.todoEditForm.addEventListener('submit', e => {
-                    e.preventDefault()
-                    
+                    e.preventDefault();
                     handler(this.todoEditSubmitData(), selectedTodo)
                     this.todoEditOverlay.style.display = "none";
                     this.todoEditForm.reset()
