@@ -85,7 +85,6 @@ export class Model {
     deleteTodo(data){
         let id = parseInt(data.parentNode.parentNode.id)
         let active = this.findActiveProject()
-        
         let removedTodo = active.todos.splice(id, 1)
         this.updateTodoId(active.todos)
         PubSub.publishSync('Delete Todo', {
@@ -99,14 +98,14 @@ export class Model {
     editTodo(data, id){
       let active = this.findActiveProject()
       let numId = parseInt(id)
-      console.log(numId)
+    //   console.log(numId)
       for(let j = 0; j < active.todos.length; j++){
           if(active.todos[j].id === numId ){
               active.todos[j].title = data.todoTitle
               active.todos[j].desc = data.todoDesc
               active.todos[j].dd = data.tododd
               active.todos[j].pri = data.todoPri
-              console.log(active.todos[j])
+            //   console.log(active.todos[j])
               PubSub.publishSync("Edit Todo", {
                   active: active
               })

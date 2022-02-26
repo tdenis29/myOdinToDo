@@ -19,6 +19,9 @@ body, html{
     height: inherit;
     width: inherit;
 }
+.hide{
+    display: none;
+}
 header{
     color: white;
     text-align: center;

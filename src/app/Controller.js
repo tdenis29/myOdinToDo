@@ -7,6 +7,7 @@ export class Controller {
         this.model = new Model()
         this.view = new View()
         //thisbindings
+    
         //display intital project
         this.view.updateProjectsList(this.model.projects)
         //add projects linkup

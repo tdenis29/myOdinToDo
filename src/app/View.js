@@ -317,7 +317,7 @@ export class View {
                         todoHTML += `
                         <div class="input desc">
                             <p>No Dude Date!</p>
-                            <input type="date" readonly name="duedate"> 
+                            <input class="hide" type="date" readonly name="duedate"> 
                         </div>
                         </div>`
                      } 
