@@ -19,7 +19,7 @@ export class Model {
             active: this.findActiveProject()
         })
     })
-    const editToken = PubSub.subscribe('Request Edit', (tag, selected) => {
+    const editTakeToken = PubSub.subscribe('Request Edit', (tag, selected) => {
         let active = this.findActiveProject()
         for(let i = 0; i < active.todos.length; i++){
             if(active.todos[i].id === parseInt(selected.selected)){
@@ -71,8 +71,10 @@ export class Model {
 
     // TODOS METHODS
     addTodo(data){
-        let todo = new Todo(this.findActiveProject().todos.length, data.todoTitle, data.todoDesc, data.todoPri, data.tododd) 
-        this.findActiveProject().todos.push(todo)
+        let todo = new Todo(this.findActiveProject().todos.length, data.todoTitle, data.todoDesc, data.todoPri, data.tododd)
+        let active = this.findActiveProject() 
+        active.todos.push(todo)
+        this.updateTodoId(active.todos)
         PubSub.publishSync('Add Todo', {
             active: this.findActiveProject(),
         })
@@ -83,30 +85,33 @@ export class Model {
     deleteTodo(data){
         let id = parseInt(data.parentNode.parentNode.id)
         let active = this.findActiveProject()
+        
         let removedTodo = active.todos.splice(id, 1)
+        this.updateTodoId(active.todos)
         PubSub.publishSync('Delete Todo', {
             active: active
         })
+        
         this.saveProjectstoLocalStorage(this.projects)
 
     }
  
     editTodo(data, id){
       let active = this.findActiveProject()
-      for(let i = 0; i < active.todos.length; i++){
-          if(active.todos[i].id === parseInt(id) ){
-              active.todos[i].title = data.todoTitle
-              active.todos[i].desc = data.todoDesc
-              active.todos[i].dd = data.tododd
-              active.todos[i].pri = data.todoPri
-              console.log(active.todos[i])
+      let numId = parseInt(id)
+      console.log(numId)
+      for(let j = 0; j < active.todos.length; j++){
+          if(active.todos[j].id === numId ){
+              active.todos[j].title = data.todoTitle
+              active.todos[j].desc = data.todoDesc
+              active.todos[j].dd = data.tododd
+              active.todos[j].pri = data.todoPri
+              console.log(active.todos[j])
               PubSub.publishSync("Edit Todo", {
                   active: active
               })
               
-          } else {
-              return
-          }
+          } 
       }
       this.saveProjectstoLocalStorage(this.projects)
     }
@@ -124,6 +129,11 @@ export class Model {
         }
    
    
+    }
+    updateTodoId(array){
+       array.forEach((item,index) => {
+            item.id = index
+        })
     }
     //Set Projects to Local Storage
     saveProjectstoLocalStorage(){

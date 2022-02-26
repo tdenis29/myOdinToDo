@@ -27,7 +27,7 @@ export class View {
         // Update todos List on Delete
         const deleteToken = PubSub.subscribe("Delete Todo", this.displayActiveProjectsTodos.bind(this))
         // Update todos List on Edit
-        const editToken = PubSub.subscribe("Edit Todo", this.displayActiveProjectsTodos.bind(this))
+        // const editToken = PubSub.subscribe("Edit Todo", this.displayActiveProjectsTodos.bind(this))
         // const completeToken = PubSub.subscribe("Mark Complete", this.displayActiveProjectsTodos.bind(this))
   
     }
@@ -103,6 +103,7 @@ export class View {
     */
     bindDeleteProject(handler){
      this.appendProjects.addEventListener('click', e => {
+         e.stopPropagation()
          if(e.target.nodeName === "I"){
              let result = confirm("Delete This Project?")
              if(result){
@@ -145,6 +146,7 @@ export class View {
     }
     bindDeleteTodo(handler){
         this.appendTodos.addEventListener('click', e => {
+            e.stopPropagation()
             if(e.target.classList.contains('fa-trash-alt')){
                 handler(e.target)
             }
@@ -153,6 +155,7 @@ export class View {
 
     bindExpandTodo(){
         this.appendTodos.addEventListener('click', e => {
+            e.stopPropagation()
             if(e.target.classList.contains('fa-expand-arrows-alt')){
                 let selectedTodo = e.target.parentNode.parentNode.id
                 console.log(e.target.parentNode.parentNode.id)
@@ -178,9 +181,13 @@ export class View {
     // So step one is 
 
     bindEditTodo(handler){
+        let selectedTodo = null;
         this.appendTodos.addEventListener('click', e => {
+            e.stopPropagation()
+            const editToken = PubSub.subscribe("Edit Todo", this.displayActiveProjectsTodos.bind(this))
             if(e.target.classList.contains('fa-edit')){
-                let selectedTodo = e.target.parentNode.parentNode.id
+                selectedTodo = e.target.parentNode.parentNode.id
+                console.log(e.target.parentNode.parentNode.id)
                 this.todoEditOverlay.style.display = 'block';
 
                 PubSub.publishSync("Request Edit", {
@@ -189,17 +196,22 @@ export class View {
                 })
                 const editTakeToken = PubSub.subscribe('Give To Edit', (tag, todo) => {
                     this.fillFormForEdit(todo)
-                    PubSub.unsubscribe(editTakeToken) 
+                    
                 })
                
                
                 this.todoEditForm.addEventListener('submit', e => {
+                    e.stopImmediatePropagation()
                     e.preventDefault();
                     handler(this.todoEditSubmitData(), selectedTodo)
                     this.todoEditOverlay.style.display = "none";
                     this.todoEditForm.reset()
+                    PubSub.unsubscribe(editTakeToken) 
+                   PubSub.unsubscribe(editToken)
+                    
                    
                 })
+            
           
             }
        
@@ -270,7 +282,6 @@ export class View {
         let todoArr = project.todos;
         let todoHTML = '';
         this.selectedProject.textContent = `${title}`;
-        console.log(todoArr.length)
         if(todoArr.length === 0){
             this.emptyTodoMessage.textContent = `No Todos in this Project... Create One!`
             this.appendTodos.innerHTML = "";
